@@ -148,7 +148,7 @@ var Pizza = {
 
         if (!/text/.test(text.node.nodeName)) return;
 
-        if (!settings.show_text) {
+        if (settings.show_text) {
           text.animate({
             opacity: 0
           }, settings.animation_speed);
