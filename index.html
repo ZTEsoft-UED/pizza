@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>jQuery响应式数据可视化图表 饼图</title>
+
+  <link href="dist/css/vendor/normalize.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="dist/css/vendor/foundation.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="dist/css/pizza.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
+  <script src="dist/js/jquery-1.8.2.min.js"></script>
+  <script src="dist/js/vendor/modernizr.js"></script>
+  <style type="text/css" media="screen">
+    body {
+      background: #fff;
+    }
+    [data-pie-id] > *:nth-child(7n+1),
+    [data-bar-id] > *:nth-child(7n+1),
+    [data-line-id] > *:nth-child(7n+1) {
+        color: #f23d3d;
+    }
+    [data-pie-id] > *:nth-child(7n+2),
+    [data-bar-id] > *:nth-child(7n+2),
+    [data-line-id] > *:nth-child(7n+2) {
+        color: #f02121;
+    }
+    [data-pie-id] > *:nth-child(7n+3),
+    [data-bar-id] > *:nth-child(7n+3),
+    [data-line-id] > *:nth-child(7n+3) {
+        color: #e61010;
+    }
+    [data-pie-id] > *:nth-child(7n+4),
+    [data-bar-id] > *:nth-child(7n+4),
+    [data-line-id] > *:nth-child(7n+4) {
+        color: #cf0e0e;
+    }
+    [data-pie-id] > *:nth-child(7n+5),
+    [data-bar-id] > *:nth-child(7n+5),
+    [data-line-id] > *:nth-child(7n+5) {
+        color: #ba0d0d;
+    }
+    [data-pie-id] > *:nth-child(7n+6),
+    [data-bar-id] > *:nth-child(7n+6),
+    [data-line-id] > *:nth-child(7n+6) {
+        color: #a70c0c;
+    }
+  </style>
+
+</head>
+<body>
+<p>Pizza Pie Chart 是建立在来自 Adobe 的 Snap SVG 结构基础上的圆饼图（pie chart），透过 HTML 和 CSS 而非 JavaScript </p>
+<p>url：http://zurb.com/playground/pizza-pie-charts</p>
+<p>github：https://github.com/zurb/pizza</p>
+<p>browser：官方未说明</p>
+<p>resume：主要用来生成饼状图的库</p>
+
+<p>设置每部分数据的颜色的方式有2种，一种是设置CSS样式即可，参考本文件头部的CSS样式</p>
+<p>第二种是设置参数 //data_color: ["#CCFF99", "#FF6666","#336699","#009966","pink"],//也可设置每部分数据的颜色，如果没设置，默认为读取样式的值</p>
+  <div class="row">
+    <div class="large-12 columns">
+      <h3>Graphs</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 small-4 columns">
+      <ul data-pie-id="pie" >
+        <li data-value="20" data-text="Water Buffalo {{percent}} ({{value}} total)">Water Buffalo (20)</li>
+        <li data-value="21">Bison (21)</li>
+        <li data-value="19">Sheep (19)</li>
+        <li data-value="10" data-text="Goats {{percent}} ({{value}} total)">Goat (10)</li>
+        <li data-value="30">Shetland Pony (30)</li>
+      </ul>
+    </div>
+    <div class="large-8 small-8 columns">
+      <div id="pie"></div>
+    </div>
+  </div>
+
+  <br><br><br>
+  <script src="dist/js/vendor/dependencies.js"></script>
+  <script src="dist/js/pizza.js"></script>
+  <script>
+    $(function() {
+     Pizza.init(document.body, {
+          data: [23, 43, 17, 7, 11],
+          data_color: ["#CCFF99", "#FF6666","#336699","#009966","pink"],//设置每部分数据的颜色
+          "percent_offset": 30,
+          "donut":"true", /*空心圆*/
+        // donut_inner_ratio: 0,   // between 0 and 1
+        //  percent_offset: 30,       // 相对半径
+        //  stroke_color: '#ccc', //笔画颜色
+        //  stroke_width: 0,  //笔画宽度
+        //  show_percent: true,       //显示或隐藏图表中的百分比。
+        //  animation_speed: 600, //动画时间
+        //animation_type: 'elastic' // 动画方式 options: backin, backout, bounce, easein, 
+      });
+    });
+  </script>
+</body>
+</html>
