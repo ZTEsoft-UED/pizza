@@ -1,9 +1,11 @@
 /**
 *@ Name: Pizza.Js V1.1.0 Ecare界面定制版本
 *@ Author: UED 马云云
-*@ Update: 2015年8月31日09:49:36;可以自定义设置颜色值
+*@ Update: 2015年8月31日 可以自定义设置颜色值
 *@ Copyright: MIT License
 */
+var  data_color=[];
+var  get_data_color=[];
 var Pizza = {
   version : '0.2.1',
   settings : {
@@ -16,6 +18,7 @@ var Pizza = {
     show_grid: true,
     bar_spacer: 100,
     bar_intervals: 6,
+    data_color: data_color,
     animation_type: 'elastic' // options: backin, backout, bounce, easein,
                               //easeinout, easeout, linear
   },
@@ -243,7 +246,6 @@ var Pizza = {
     for (attr in attrs) {
       node.setAttribute(attr, attrs[attr]);
     }
-
     return this;
   },
 
@@ -251,12 +253,12 @@ var Pizza = {
     node.setAttribute('transform', 'translate(0, ' + h +') scale(1, -1)');
   }
 };
+get_data_color= data_color;
 $.extend(Pizza, {
   bar: function (legend) {
     var settings = legend.data('settings'),
         svg = this.svg(legend, settings),
         data = legend.data('graph-data'),
-        get_data_color= data_color,
         current_offset = 0,
         container = $(this.identifier(legend)),
         base_width = container.outerWidth(),
@@ -281,7 +283,7 @@ $.extend(Pizza, {
 
     if (existing_group.length > 0) {
       var g = existing_group[0];
-    } else {
+      } else {
       var g = this.svg_obj('g');
       g.setAttribute('data-id', 'bars');
     }
@@ -313,13 +315,13 @@ $.extend(Pizza, {
       rect.setAttribute('data-y', y);
 
 
-      if (get_data_color!=null) {
+      if (get_data_color!=null&&get_data_color!="") {
        this.set_attr(rect, {
           x : new_offset,
           y : 0,
           width : interval,
           height : y,
-          fill: get_data_color[i].color,
+          fill: data_color[i].color,
           stroke: settings.stroke_color,
           'strokeWidth': settings.stroke_width
         });
@@ -483,7 +485,6 @@ $.extend(Pizza, {
         width = container.outerWidth(),
         height = container.outerHeight(),
         data = legend.data('graph-data'),
-        get_data_color= data_color,
         max_x = max_y = min_x = min_y = total_x = total_y = 0,
         i = data.length,
         points = '';
@@ -526,9 +527,9 @@ $.extend(Pizza, {
           y = (data[i].y / max_y) * height;
 
       points += x + ',' + y + ' ';
-      if (get_data_color!=null) {
+        if (get_data_color!=null&&get_data_color!="")  {
           this.set_attr(circle, {cx: x, cy: y,r: 0,
-          fill: get_data_color[i],
+          fill: data_color[i],
           'data-value': data[i].x + ', ' + data[i].y,
           'data-tooltip': '',
           'title': data[i].x + ', ' + data[i].y,
@@ -751,12 +752,12 @@ $.extend(Pizza, {
     var settings = legend.data('settings'),
         svg = this.svg(legend, settings),
         data = legend.data('graph-data'),
-        get_data_color= data_color,
         total = 0,
         angles = [],
         start_angle = 0,
         container = $(this.identifier(legend)),
         base = container.outerWidth();
+
 
     for (var i = 0; i < data.length; i++) {
       total += data[i].value;
@@ -852,25 +853,25 @@ $.extend(Pizza, {
       } else {
         path.setAttribute('d', d);
       }
-    if (get_data_color!=null) {
-            this.set_attr(path, {
-            fill: get_data_color[i],
-            stroke: settings.stroke_color,
-            'strokeWidth': settings.stroke_width,
-            'data-cx' : cx,
-            'data-cy' : cy,
-            'data-id' : 's' + i
-          });
-    }else{
-            this.set_attr(path, {
-            fill: data[i].color,
-            stroke: settings.stroke_color,
-            'strokeWidth': settings.stroke_width,
-            'data-cx' : cx,
-            'data-cy' : cy,
-            'data-id' : 's' + i
-          });
-    };
+      if (get_data_color!=null&&get_data_color!="") {
+              this.set_attr(path, {
+              fill: get_data_color[i],
+              stroke: settings.stroke_color,
+              'strokeWidth': settings.stroke_width,
+              'data-cx' : cx,
+              'data-cy' : cy,
+              'data-id' : 's' + i
+            });
+      }else{
+              this.set_attr(path, {
+              fill: data[i].color,
+              stroke: settings.stroke_color,
+              'strokeWidth': settings.stroke_width,
+              'data-cx' : cx,
+              'data-cy' : cy,
+              'data-id' : 's' + i
+            });
+      };
 
       var existing_group = $('g[data-id=g' + i + ']', svg);
 
